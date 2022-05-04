@@ -2,20 +2,20 @@
 
 #include "quantum.h"
 
-#define red_led_off   writePinHigh(F5)
-#define red_led_on    writePinLow(F5)
-#define blu_led_off   writePinHigh(F4)
-#define blu_led_on    writePinLow(F4)
+#define ylw_led_off   writePinHigh(F5)
+#define ylw_led_on    writePinLow(F5)
+#define red_led_off   writePinHigh(F4)
+#define red_led_on    writePinLow(F4)
 #define grn_led_off   writePinHigh(D1)
 #define grn_led_on    writePinLow(D1)
-#define wht_led_off   writePinHigh(D0)
-#define wht_led_on    writePinLow(D0)
+#define blu_led_off   writePinHigh(D0)
+#define blu_led_on    writePinLow(D0)
 
-#define set_led_off     red_led_off; grn_led_off; blu_led_off; wht_led_off
-#define set_led_red     red_led_on;  grn_led_off; blu_led_off; wht_led_off
-#define set_led_blue    red_led_off; grn_led_off; blu_led_on;  wht_led_off
-#define set_led_green   red_led_off; grn_led_on;  blu_led_off; wht_led_off
-#define set_led_white   red_led_off;  grn_led_off;  blu_led_off; wht_led_on
+#define set_led_off     ylw_led_off; grn_led_off; red_led_off; blu_led_off
+#define set_led_yellow  ylw_led_on;  grn_led_off; red_led_off; blu_led_off
+#define set_led_red     ylw_led_off; grn_led_off; red_led_on;  blu_led_off
+#define set_led_green   ylw_led_off; grn_led_on;  red_led_off; blu_led_off
+#define set_led_blue    ylw_led_off; grn_led_off; red_led_off; blu_led_on
 
 // This a shortcut to help you visually see your layout.
 // The first section contains all of the arguements
