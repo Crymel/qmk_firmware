@@ -20,11 +20,11 @@
 
 /* USB Device descriptor parameter */
 
-#define VENDOR_ID       0x4D44 //MD
-#define PRODUCT_ID      0x5257 //RW
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Mattia Dal Ben
-#define PRODUCT         Redox_wireless
+#define VENDOR_ID 0x4D44   // MD
+#define PRODUCT_ID 0x5257  // RW
+#define DEVICE_VER 0x0001
+#define MANUFACTURER Mattia Dal Ben
+#define PRODUCT Redox_wireless
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -56,7 +56,7 @@
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 
-//UART settings for communication with the RF microcontroller
+// UART settings for communication with the RF microcontroller
 #define SERIAL_UART_BAUD 1000000
 #define SERIAL_UART_RXD_PRESENT (UCSR1A & _BV(RXC1))
 #define SERIAL_UART_INIT_CUSTOM       \
@@ -65,4 +65,4 @@
     /* 8-bit data */                  \
     UCSR1C = _BV(UCSZ11) | _BV(UCSZ10);
 
-#define UNICODE_SELECTED_MODES UC_WINC
+#define UNICODE_SELECTED_MODES UC_MAC, UC_WINC
