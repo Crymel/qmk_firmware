@@ -91,8 +91,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TO(_MOUSE), KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,
                              KC_TRNS, KC_END,   KC_PGDN, KC_PGUP,  KC_HOME,
 
-        KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS
+        LCTL(KC_C), LCTL(KC_V), KC_TRNS,
+        KC_TRNS,    KC_TRNS,    KC_TRNS
     ),
     [_MOVE] = LAYOUT_ergodox(
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS,
@@ -143,9 +143,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS,
 
         KC_TRNS, LAG(KC_6), LAG(KC_7),    LAG(KC_8),    LAG(KC_9),     LAG(KC_0), KC_TRNS,
-        KC_TRNS, KC_TRNS,   KC_TRNS,      LAG(KC_UP),   KC_TRNS,       KC_TRNS,   KC_TRNS,
+        KC_TRNS, KC_TRNS,   LAG(KC_U),      LAG(KC_UP),   LAG(KC_O),       KC_TRNS,   KC_TRNS,
                  KC_TRNS,   LAG(KC_LEFT), LAG(KC_DOWN), LAG(KC_RIGHT), KC_TRNS,   KC_TRNS,
-        KC_TRNS, KC_TRNS,   KC_TRNS,      KC_TRNS,      KC_TRNS,       KC_TRNS,   KC_TRNS,
+        KC_TRNS, KC_TRNS,   LAG(KC_M),      KC_TRNS,      LAG(KC_DOT),       KC_TRNS,   KC_TRNS,
                             KC_TRNS,      KC_TRNS,      KC_TRNS,       KC_TRNS,   KC_TRNS,
 
         KC_TRNS, KC_TRNS,     KC_TRNS,
@@ -153,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_UMLAUT] = LAYOUT_ergodox(
         KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS,   KC_SNEK, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TO(0),
+        KC_TRNS,   KC_SNEK, KC_TRNS, KC_EURO, KC_TRNS, KC_TRNS, TO(0),
         KC_TRNS,   KC_AE,   KC_SZ,   KC_TRNS, KC_TRNS, KC_TRNS,
         KC_LSHIFT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
