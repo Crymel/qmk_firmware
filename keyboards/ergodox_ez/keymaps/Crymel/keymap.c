@@ -69,6 +69,29 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT_ergodo
     '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'
 );
 
+// Flow Tap can't see what's typed next, so a fast keystroke right before F or
+// J forces them to tap even when the intent was to hold Shift for a symbol
+// chord (e.g. Shift+/ becoming "f/"). Exempt just these two from Flow Tap;
+// Chordal Hold + Permissive Hold still guard them against same-hand misfires.
+uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_keycode) {
+    switch (keycode) {
+        case LSFT_T(KC_F):
+        case RSFT_T(KC_J):
+            return 0;
+    }
+    if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
+        return FLOW_TAP_TERM;
+    }
+    return 0;
+}
+
+// F+J pressed together instantly toggles Caps Word, bypassing the mod-tap
+// hold-resolution delay that BOTH_SHIFTS_TURNS_ON_CAPS_WORD required.
+const uint16_t PROGMEM capsword_combo[] = {LSFT_T(KC_F), RSFT_T(KC_J), COMBO_END};
+combo_t                key_combos[]     = {
+    COMBO(capsword_combo, CW_TOGG),
+};
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // OneShot
     switch (keycode) {
