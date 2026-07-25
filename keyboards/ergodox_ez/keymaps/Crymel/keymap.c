@@ -66,12 +66,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Exempt the thumb cluster from Chordal Hold's opposite-hands rule, so
 // same-hand chords through a thumb key (e.g. holding J+K and tapping Space)
 // still combine as held mods instead of being forced to resolve as taps.
+// Also exempt every other layer-tap whose target layer's content is meant to
+// be same-hand chorded with it, same reasoning: Chordal Hold would otherwise
+// force these keys to resolve as tapped the moment their own layer's content
+// is pressed.
+//   - LT(_MOVE, KC_QUOTE): I/J/K/L etc. on the right hand (e.g. "'i" instead
+//     of Up).
+//   - LT(_MOUSE, KC_GRV) / LT(_MOUSE, KC_MINS): each hand's half of _MOUSE
+//     (cursor/wheel/buttons on the left, arrows/paging on the right) sits on
+//     the same hand as its own activation key.
+//   - LT(_ONESHOTCMD, KC_SLSH): copy/paste/cut sit at J/K/L, same hand as the
+//     activation key.
+//   - ALT_UML_os: mostly safe (its oneshot-layer tap is a full release before
+//     the umlaut key), but exempted anyway to protect its secondary use as a
+//     plain held Alt modifier for same-hand chords.
 const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT_ergodox_pretty(
+    '*', 'L', 'L', 'L', 'L', 'L', 'L',   'R', 'R', 'R', 'R', 'R', 'R', '*',
     'L', 'L', 'L', 'L', 'L', 'L', 'L',   'R', 'R', 'R', 'R', 'R', 'R', 'R',
-    'L', 'L', 'L', 'L', 'L', 'L', 'L',   'R', 'R', 'R', 'R', 'R', 'R', 'R',
-    'L', 'L', 'L', 'L', 'L', 'L',        'R', 'R', 'R', 'R', 'R', 'R',
-    'L', 'L', 'L', 'L', 'L', 'L', 'L',   'R', 'R', 'R', 'R', 'R', 'R', 'R',
-    'L', 'L', 'L', 'L', 'L',             'R', 'R', 'R', 'R', 'R',
+    'L', 'L', 'L', 'L', 'L', 'L',        'R', 'R', 'R', 'R', 'R', '*',
+    'L', 'L', 'L', 'L', 'L', 'L', 'L',   'R', 'R', 'R', 'R', 'R', '*', 'R',
+    'L', 'L', 'L', '*', 'L',             'R', 'R', 'R', 'R', 'R',
     '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'
 );
 
