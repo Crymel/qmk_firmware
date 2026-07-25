@@ -57,6 +57,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                           KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT),
 };
 
+// Exempt the thumb cluster from Chordal Hold's opposite-hands rule, so
+// same-hand chords through a thumb key (e.g. holding J+K and tapping Space)
+// still combine as held mods instead of being forced to resolve as taps.
+const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT_ergodox_pretty(
+    'L', 'L', 'L', 'L', 'L', 'L', 'L',   'R', 'R', 'R', 'R', 'R', 'R', 'R',
+    'L', 'L', 'L', 'L', 'L', 'L', 'L',   'R', 'R', 'R', 'R', 'R', 'R', 'R',
+    'L', 'L', 'L', 'L', 'L', 'L',        'R', 'R', 'R', 'R', 'R', 'R',
+    'L', 'L', 'L', 'L', 'L', 'L', 'L',   'R', 'R', 'R', 'R', 'R', 'R', 'R',
+    'L', 'L', 'L', 'L', 'L',             'R', 'R', 'R', 'R', 'R',
+    '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'
+);
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // OneShot
     switch (keycode) {
