@@ -85,7 +85,7 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT_ergodo
     'L', 'L', 'L', 'L', 'L', 'L', 'L',   'R', 'R', 'R', 'R', 'R', 'R', 'R',
     'L', 'L', 'L', 'L', 'L', 'L',        'R', 'R', 'R', 'R', 'R', '*',
     'L', 'L', 'L', 'L', 'L', 'L', 'L',   'R', 'R', 'R', 'R', 'R', '*', 'R',
-    'L', 'L', 'L', '*', 'L',             'R', 'R', 'R', 'R', 'R',
+    'L', 'L', 'L', '*', '*',             '*', 'R', 'R', 'R', 'R',
     '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'
 );
 
@@ -103,6 +103,21 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_
         return FLOW_TAP_TERM;
     }
     return 0;
+}
+
+// Enter's SYMB hold and Backspace's Ctrl hold otherwise wait for the next key
+// to be released before resolving, since Permissive Hold only fires on
+// release. That's the whole delay this closes: resolve as held the instant
+// the next key is pressed, matching how a normal modifier feels.
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LT(_SYMB, KC_ENT):
+        case LCTL_T(KC_BSPC):
+        case RCTL_T(KC_BSPC):
+            return true;
+        default:
+            return false;
+    }
 }
 
 // F+J pressed together instantly toggles Caps Word, bypassing the mod-tap
