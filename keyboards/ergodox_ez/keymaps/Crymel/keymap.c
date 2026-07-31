@@ -96,14 +96,19 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT_ergodo
     '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'
 );
 
-// Flow Tap can't see what's typed next, so a fast keystroke right before F or
-// J forces them to tap even when the intent was to hold Shift for a symbol
-// chord (e.g. Shift+/ becoming "f/"). Exempt just these two from Flow Tap;
-// Chordal Hold + Permissive Hold still guard them against same-hand misfires.
+// Flow Tap can't see what's typed next, so a fast keystroke right before one
+// of these forces a tap even when the intent was to hold:
+//   - F/J: hold Shift for a symbol chord (e.g. Shift+/ becoming "f/").
+//   - LT(_ONESHOTCMD, KC_SLSH): hold to reach the copy/paste/cut layer; its tap
+//     output KC_SLSH is in Flow Tap's set, so a fast prior key made it type "/"
+//     instead of switching layer.
+// Exempt these from Flow Tap; Chordal Hold + Permissive Hold still guard them
+// against same-hand misfires.
 uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_keycode) {
     switch (keycode) {
         case LSFT_T(KC_F):
         case RSFT_T(KC_J):
+        case LT(_ONESHOTCMD, KC_SLSH):
             return 0;
     }
     if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
