@@ -38,6 +38,41 @@ const uint32_t PROGMEM unicode_map[] = {[BANG]  = 0x203D,  // ‽
 
 #define ENTR_SYM LT(_SYMB, KC_ENT)
 
+// The host OS is detected automatically (OS_DETECTION_ENABLE) and drives the
+// Unicode input mode, so _UMLAUT's ä/ö/ü/ß/€/🐍 keys work on both macOS
+// (Unicode Hex Input) and Linux (IBus, Ctrl+Shift+U) with no manual toggle.
+//
+// This has to be a callback, not a call in keyboard_post_init: the detection
+// result only stabilises a few hundred ms after USB enumeration, well after
+// init runs. unicode_input_mode_init() has already loaded the EEPROM-stored
+// mode by then; this just corrects it once the OS is known.
+//
+// OS_UNSURE deliberately changes nothing — keeping the last known-good mode
+// beats guessing. The get/set comparison keeps repeated callbacks (ARM Macs
+// re-report minutes after boot) from re-running the set path needlessly.
+bool process_detected_host_os_user(os_variant_t os) {
+    uint8_t mode;
+    switch (os) {
+        case OS_MACOS:
+        case OS_IOS:
+            mode = UNICODE_MODE_MACOS;
+            break;
+        case OS_LINUX:
+            mode = UNICODE_MODE_LINUX;
+            break;
+        case OS_WINDOWS:
+            mode = UNICODE_MODE_WINDOWS;
+            break;
+        case OS_UNSURE:
+        default:
+            return true;
+    }
+    if (get_unicode_input_mode() != mode) {
+        set_unicode_input_mode(mode);
+    }
+    return true;
+}
+
 bool MACMODE = true;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
